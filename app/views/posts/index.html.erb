@@ -1,0 +1,68 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Posts</h1>
+
+<%= link_to('title_starting_with_an_a', post_params(params, title_starting_with: 'a')) %>
+<br>
+<%= link_to('toggle title sort', post_params(params, reorder: {title: params.fetch('reorder', {})['title'] == 'asc' ? :desc : :asc})) %>
+
+<form>
+  <% post_params(params, title_starting_with: params[:title_starting_with]).each do |k,v| %>
+    <% if k.to_sym == :title_starting_with %>
+      <%= label_tag(k, 'title starting with') %>
+      <%= text_field_tag(k, v) %>
+    <% else %>
+      <% case v %>
+      <% when String %>
+        <%= hidden_field_tag(k, v) %>
+      <% when Hash %>
+        <% v.each do |kk,vv| %>
+        <%= hidden_field_tag("#{k}[#{kk}]", vv) %>
+        <% end %>
+      <%end %>
+    <% end %>
+  <% end %>
+</form>
+
+<form>
+  <% post_params(params, page: params[:page]).each do |k,v| %>
+    <% if k.to_sym == :page %>
+      <%= label_tag(k, 'page') %>
+      <%= text_field_tag(k, v) %>
+    <% else %>
+      <%= hidden_field_tag(k, v) %>
+    <% end %>
+  <% end %>
+</form>
+
+<br>
+params: <%= params %> <br>
+sql: <%= @posts.to_sql %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Body</th>
+      <th>Published</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.title %></td>
+        <td><%= post.body %></td>
+        <td><%= post.published %></td>
+        <td><%= link_to 'Show', post %></td>
+        <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Post', new_post_path %>
