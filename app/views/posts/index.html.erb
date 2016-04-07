@@ -30,8 +30,15 @@
       <%= label_tag(k, 'page') %>
       <%= text_field_tag(k, v) %>
     <% else %>
-      <%= hidden_field_tag(k, v) %>
-    <% end %>
+      <% case v %>
+  <% when String %>
+        <%= hidden_field_tag(k, v) %>
+      <% when Hash %>
+        <% v.each do |kk,vv| %>
+          <%= hidden_field_tag("#{k}[#{kk}]", vv) %>
+        <% end %>
+      <%end %>
+<% end %>
   <% end %>
 </form>
 
