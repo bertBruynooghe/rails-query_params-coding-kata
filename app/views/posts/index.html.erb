@@ -4,41 +4,27 @@
 
 <%= link_to('title_starting_with_an_a', post_params(params, title_starting_with: 'a')) %>
 <br>
-<%= link_to('toggle title sort', post_params(params, reorder: {title: params.fetch('reorder', {})['title'] == 'asc' ? :desc : :asc})) %>
+<%= link_to('toggle title sort', post_params(params, reorder: { title: params.fetch('reorder', {})['title'] == 'asc' ? :desc : :asc })) %>
 
 <form>
-  <% post_params(params, title_starting_with: params[:title_starting_with]).each do |k,v| %>
+  <% post_params(params, title_starting_with: params[:title_starting_with]).each do |k, v| %>
     <% if k.to_sym == :title_starting_with %>
       <%= label_tag(k, 'title starting with') %>
       <%= text_field_tag(k, v) %>
     <% else %>
-      <% case v %>
-      <% when String %>
-        <%= hidden_field_tag(k, v) %>
-      <% when Hash %>
-        <% v.each do |kk,vv| %>
-        <%= hidden_field_tag("#{k}[#{kk}]", vv) %>
-        <% end %>
-      <%end %>
+      <%= hidden_field_tag(k, v) %>
     <% end %>
   <% end %>
 </form>
 
 <form>
-  <% post_params(params, page: params[:page]).each do |k,v| %>
+  <% post_params(params, page: params[:page]).each do |k, v| %>
     <% if k.to_sym == :page %>
       <%= label_tag(k, 'page') %>
       <%= text_field_tag(k, v) %>
     <% else %>
-      <% case v %>
-  <% when String %>
-        <%= hidden_field_tag(k, v) %>
-      <% when Hash %>
-        <% v.each do |kk,vv| %>
-          <%= hidden_field_tag("#{k}[#{kk}]", vv) %>
-        <% end %>
-      <%end %>
-<% end %>
+      <%= hidden_field_tag(k, v) %>
+    <% end %>
   <% end %>
 </form>
 
