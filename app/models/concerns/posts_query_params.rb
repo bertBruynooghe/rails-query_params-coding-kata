@@ -1,4 +1,4 @@
-class PostQueryParams
+class PostsQueryParams
   include ActiveModel::Validations
 
   attr_reader   :errors
