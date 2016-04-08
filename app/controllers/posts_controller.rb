@@ -61,14 +61,22 @@ class PostsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
-    end
+  def params_with_posts_awareness
+    result = params_without_posts_awareness
+    result.extend(PostsParamsConcern) unless result.is_a? PostsParamsConcern
+    result
+  end
+  alias_method_chain :params, :posts_awareness
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def post_params
-      params.require(:post).permit(:title, :body, :published)
-    end
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def post_params
+    params.require(:post).permit(:title, :body, :published)
+  end
 end
