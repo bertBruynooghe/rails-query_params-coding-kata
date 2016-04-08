@@ -61,8 +61,10 @@ class PostsController < ApplicationController
     end
   end
 
+  # TODO: this should only be done in case of index
   def params_with_posts_awareness
     result = params_without_posts_awareness
+    result.extend(ParamsCloningConcern)
     result.extend(PostsParamsConcern) unless result.is_a? PostsParamsConcern
     result
   end

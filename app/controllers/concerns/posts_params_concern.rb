@@ -16,22 +16,4 @@ module PostsParamsConcern
     self[:page] = 1
     self[:reorder] = value
   end
-
-  # TODO: pull next ones up
-  def with(overrides)
-    params = self.dup
-    params.extend(PostsParamsConcern)
-    overrides.each { |k, v| params.assign(k, v) }
-    params
-  end
-
-  protected
-
-  def assign(k,v)
-    if !v.blank? && self[k] != v && self.respond_to?("#{k}=")
-      self.send("#{k}=", v)
-    else
-      self[k] = v
-    end
-  end
 end
