@@ -2,6 +2,10 @@
 
 <h1>Listing Posts</h1>
 
+<%= link_to('title_starting_with_an_a', params.merge(title_starting_with: 'a')) %>
+<br>
+<%= link_to('toggle title sort', params.merge(reorder: { title: params.fetch('reorder', {})['title'] == 'asc' ? :desc : :asc })) %>
+
 <br>
 params: <%= params %> <br>
 sql: <%= @posts.to_sql %>
