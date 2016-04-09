@@ -17,6 +17,9 @@
   <% end %>
 </form>
 
+<%# form_for params.with(page: params[:page]) do |f| %>
+<%# end %>
+
 <form>
   <% params.with(page: params[:page]).each do |k, v| %>
     <% if k.to_sym == :page %>

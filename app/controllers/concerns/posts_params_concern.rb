@@ -16,4 +16,9 @@ module PostsParamsConcern
     self[:page] = 1
     self[:reorder] = value
   end
+
+  def dup_with_posts
+    dup_without_posts.tap{|p| p.extend(PostsParamsConcern)}
+  end
+  alias_method_chain :dup, :posts
 end
