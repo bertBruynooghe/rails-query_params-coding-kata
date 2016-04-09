@@ -2,35 +2,6 @@
 
 <h1>Listing Posts</h1>
 
-<%= link_to('title_starting_with_an_a', params.with(title_starting_with: 'a')) %>
-<br>
-<%= link_to('toggle title sort', params.with(reorder: { title: params.fetch('reorder', {})['title'] == 'asc' ? :desc : :asc })) %>
-
-<form>
-  <% params.with(title_starting_with: params[:title_starting_with]).each do |k, v| %>
-    <% if k.to_sym == :title_starting_with %>
-      <%= label_tag(k, 'title starting with') %>
-      <%= text_field_tag(k, v) %>
-    <% else %>
-      <%= hidden_field_tag(k, v) %>
-    <% end %>
-  <% end %>
-</form>
-
-<%# form_for params.with(page: params[:page]) do |f| %>
-<%# end %>
-
-<form>
-  <% params.with(page: params[:page]).each do |k, v| %>
-    <% if k.to_sym == :page %>
-      <%= label_tag(k, 'page') %>
-      <%= text_field_tag(k, v) %>
-    <% else %>
-      <%= hidden_field_tag(k, v) %>
-    <% end %>
-  <% end %>
-</form>
-
 <br>
 params: <%= params %> <br>
 sql: <%= @posts.to_sql %>
