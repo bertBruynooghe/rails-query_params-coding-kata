@@ -61,12 +61,9 @@ class PostsController < ApplicationController
     end
   end
 
-  def params_with_posts_awareness
-    result = params_without_posts_awareness
-    result.extend(PostsParamsConcern) if result[:action] == :index && !result.is_a?(PostsParamsConcern)
-    result
+  def params
+    @params ||= super.extend(PostsParamsConcern)
   end
-  alias_method_chain :params, :posts_awareness
 
   private
 
