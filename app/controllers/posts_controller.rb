@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
+    params.extend(PostsParamsConcern)
     @posts = Post.for_params(params)
   end
 
