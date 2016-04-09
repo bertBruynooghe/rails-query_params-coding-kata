@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
+    params.extend(PostsParamsConcern)
     @posts = Post.for_params(params)
   end
 
@@ -59,10 +60,6 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
-
-  def params
-    @params ||= super.extend(PostsParamsConcern)
   end
 
   private
