@@ -14,13 +14,25 @@ Params:
 <%= link_to('toggle title sort',params.merge(reorder: {title: next_sort_order_for(:title)})) %>
 
 <form>
-    <%= label_tag(:title_starting_with, 'title starting with') %>
-    <%= text_field_tag(:title_starting_with, params[:title_starting_with]) %>
+  <% params.merge(title_starting_with: params[:title_starting_with]).each do |k, v| %>
+    <% if k.to_sym == :title_starting_with %>
+      <%= label_tag(k, 'title starting with') %>
+      <%= text_field_tag(k, v) %>
+    <% else %>
+      <%= hidden_field_tag(k, v) %>
+    <% end %>
+  <% end %>
 </form>
 
 <form>
-    <%= label_tag(:page, 'page') %>
-    <%= text_field_tag(:page, params[:page]) %>
+  <% params.merge(page: params[:page]).each do |k, v| %>
+    <% if k.to_sym == :page %>
+      <%= label_tag(k, 'page') %>
+      <%= text_field_tag(k, v) %>
+    <% else %>
+      <%= hidden_field_tag(k, v) %>
+    <% end %>
+  <% end %>
 </form>
 
 <%= will_paginate @posts %>
