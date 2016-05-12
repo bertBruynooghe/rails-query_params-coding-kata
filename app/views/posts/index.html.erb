@@ -8,5 +8,20 @@ Params:
 <%= params %>
 
 <br>
+
+<%= link_to('title_starting_with_an_a', title_starting_with: 'a') %>
+<br>
+<%= link_to('toggle title sort', reorder: { title: next_sort_order_for(:title) }) %>
+
+<form>
+    <%= label_tag(:title_starting_with, 'title starting with') %>
+    <%= text_field_tag(:title_starting_with, params[:title_starting_with]) %>
+</form>
+
+<form>
+    <%= label_tag(:page, 'page') %>
+    <%= text_field_tag(:page, params[:page]) %>
+</form>
+
 <%= will_paginate @posts %>
 <%= link_to 'New Post', new_post_path %>

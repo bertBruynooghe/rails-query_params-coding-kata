@@ -73,6 +73,6 @@ class PostsController < ApplicationController
     end
 
     def index_params
-      params.permit(:page)
+      params.permit(:page, :title_starting_with, reorder: [:title])
     end
 end
